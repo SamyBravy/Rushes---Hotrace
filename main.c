@@ -82,13 +82,7 @@ int	main(void)
 	t_state			state;
 	t_key			key;
 	t_data			data;
-	// REMOVE-----------------
-	struct timespec	start;
-	struct timespec	end;
-	double			elapsed;
 
-	clock_gettime(CLOCK_MONOTONIC, &start);
-	// REMOVE-----------------
 	init(&data, &state);
 	line = get_next_line(0);
 	while (line)
@@ -108,11 +102,6 @@ int	main(void)
 		line = get_next_line(0);
 	}
 	free_all(&data);
-	// REMOVE-----------------
-	clock_gettime(CLOCK_MONOTONIC, &end);
-	elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-	printf("Elapsed time: %.9f seconds\n", elapsed);
-	// REMOVE-----------------
 }
 /*
 	// REMOVE-----------------
