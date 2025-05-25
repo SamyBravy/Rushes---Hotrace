@@ -80,9 +80,10 @@ int	main(void)
 	t_state	state;
 	t_key	key;
 	t_data	data;
+	struct timespec start, end;
+	double elapsed;
 
-	clock_t	start_time;
-	start_time = clock();
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	data = (t_data){.hashtable = NULL, .hashtable_size = HASH_TABLE_SIZE / 2};
 	state = INS_KEY;
 	line = get_next_line(0);
@@ -104,8 +105,8 @@ int	main(void)
 		line = get_next_line(0);
 	}
 	free_all(&data);
-	clock_t	end_time = clock();
-	double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
-	printf("Elapsed time: %.2f seconds\n", elapsed_time);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+	printf("Elapsed time: %.9f seconds\n", elapsed);
 	return (0);
 }
