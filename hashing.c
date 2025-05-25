@@ -6,7 +6,7 @@
 /*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:47:52 by samuele          ###   ########.fr       */
+/*   Updated: 2025/05/25 16:27:04 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ size_t	convert_to_int(char *key)
 	return (res);
 }
 
-size_t	h1(size_t hashtable_size, size_t key)
+static size_t	h1(size_t hashtable_size, size_t key)
 {
 	return (key % hashtable_size);
 }
 
-size_t	h2(size_t hashtable_size, size_t key)
+static size_t	h2(size_t hashtable_size, size_t key)
 {
 	return (1 + (key % (hashtable_size - 1)));
 }

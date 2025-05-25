@@ -1,7 +1,7 @@
 NAME=hotrace
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
+CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3  -march=native -I.
 
 # HASH_TABLE_SIZE ?= 333337
 # CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
