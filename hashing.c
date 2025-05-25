@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odudniak <odudniak@student.42firenze.      +#+  +:+       +#+        */
+/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/24 16:01:44 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 13:58:26 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ size_t	convert_to_int(char *key)
 	size_t	res;
 	size_t	pow;
 
-	i = ft_strlen(key) - 1;
+	i = 0;
 	res = 0;
 	pow = 1;
-	while (i >= 0)
+	while (key[i])
 	{
 		res += (key[i] * pow);
 		pow *= 128;
-		i--;
+		i++;
 	}
 	return (res);
 }
