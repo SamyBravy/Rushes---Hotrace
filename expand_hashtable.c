@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:25:25 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:26:23 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:14:03 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	expand_hashtable(t_data *data)
 
 	new_size = data->hashtable_size * 2 + 1;
 	new_hashtable = ft_calloc(new_size, sizeof(t_entry *));
-	if (!new_hashtable)
-		write(2, "ERROR: cannot allocate memory\n", 31);
 	if (!data->hashtable)
 	{
 		data->hashtable = new_hashtable;

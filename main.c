@@ -65,6 +65,15 @@ void	init(t_data *data, t_state *state)
 	data->hashtable = ft_calloc(data->hashtable_size, sizeof(t_entry *));
 }
 
+/*
+	// REMOVE-----------------
+	struct timespec	start;
+	struct timespec	end;
+	double			elapsed;
+
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	// REMOVE-----------------
+*/
 int	main(void)
 {
 	char			*line;
@@ -103,3 +112,10 @@ int	main(void)
 	printf("Elapsed time: %.9f seconds\n", elapsed);
 	// REMOVE-----------------
 }
+/*
+	// REMOVE-----------------
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+	printf("Elapsed time: %.9f seconds\n", elapsed);
+	// REMOVE-----------------
+*/

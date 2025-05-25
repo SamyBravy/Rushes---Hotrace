@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:55:17 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:13:17 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_entry	*new_entry(t_key key, char *value)
 	t_entry	*entry;
 
 	entry = malloc(sizeof(t_entry));
-	if (!entry)
-		return (NULL);
 	entry->key = key.key;
 	entry->key_len = key.len;
 	entry->value = value;
@@ -62,16 +60,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 
 	d = dest;
 	s = (unsigned char *)src;
-	if (d == s)
-		return (dest);
-	if (d >= s && d <= s + n)
-	{
-		d += n;
-		s += n;
-		while (n--)
-			*--d = *--s;
-		return (dest);
-	}
 	while (n--)
 		*d++ = *s++;
 	return (dest);
@@ -84,8 +72,6 @@ void	*ft_calloc(size_t n, size_t size)
 	char			*ptr;
 
 	ptr = malloc(total_size);
-	if (!ptr)
-		return (NULL);
 	i = -1;
 	while (++i < total_size)
 		ptr[i] = 0;
