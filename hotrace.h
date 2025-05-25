@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:52:14 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:00:00 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_gnl
 
 char	*get_next_line(int fd);
 // UTILS
+void	free_all(t_data *data);
 t_entry	*new_entry(t_key key, char *value);
 size_t	ft_strlen(char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
