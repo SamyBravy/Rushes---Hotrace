@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 15:00:00 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:20:13 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 128
+#  define BUFFER_SIZE 1024
 # endif
 
 # ifndef HASH_TABLE_SIZE
