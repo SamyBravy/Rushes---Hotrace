@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hotrace.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odudniak <odudniak@student.42firenze.      +#+  +:+       +#+        */
+/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/24 16:01:44 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 14:09:41 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@
 
 typedef struct s_entry
 {
-	size_t	key;
-	char	*value;
-	int		value_len;
-
+	size_t		key;
+	char		*value;
+	size_t		value_len;
+	size_t		key_len;
 }	t_entry;
 
 typedef enum e_state
