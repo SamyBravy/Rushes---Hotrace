@@ -1,7 +1,7 @@
 NAME=hotrace
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I. -pg
+CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
 
 # HASH_TABLE_SIZE ?= 333337
 # CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
@@ -26,12 +26,12 @@ fclean: clean
 re: fclean all
 
 
-profile: CFLAGS += -pg
-profile: LDFLAGS += -pg
-profile: re
+pre-profile: CFLAGS += -pg
+pre-profile: LDFLAGS += -pg
+pre-profile: re
 
 # Complete profiling workflow in a single command
-profile-all: profile
+profile: pre-profile
 	@echo "Generating test data..."
 	@rm -f gen test_file
 	cc gen.c -o gen
