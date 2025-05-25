@@ -34,7 +34,7 @@ static char	*append_string(char *str, char *buff, int str_size, int newline_idx)
 		buff_size = newline_idx;
 	else
 		buff_size = ft_strlen(buff);
-	result = ft_calloc(str_size + buff_size + 1, sizeof(char));
+	result = malloc((str_size + buff_size + 1) * sizeof(char));
 	if (!result)
 		return (free(str), NULL);
 	ft_memmove(result, str, str_size);
