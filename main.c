@@ -19,26 +19,26 @@ void	expand_hashtable(t_data *data)
 	int		i;
 	int		new_size;
 	t_entry	**new_hashtable;
+	t_data	new_data;
 
 	new_size = data->hashtable_size * 2 + 1;
 	new_hashtable = ft_calloc(new_size, sizeof(t_entry *));
 	if (!new_hashtable)
 		write(2, "ERROR: cannot allocate memory\n", 31);
+	new_data.hashtable = new_hashtable;
+	new_data.hashtable_size = new_size;
 	i = 0;
 	if (!data->hashtable)
 	{
-		data->hashtable_size = new_size;
 		data->hashtable = new_hashtable;
 		return ;
 	}
 	while (i < data->hashtable_size)
 	{
-		new_hashtable[i] = data->hashtable[i];
+		insert(data, data->hashtable[i]->key, data->hashtable[i]->value);
 		i++;
 	}
 	free(data->hashtable);
-	data->hashtable = new_hashtable;
-	data->hashtable_size = new_size;
 }
 
 void	insert(t_data *data, size_t key, char *value)
@@ -49,7 +49,7 @@ void	insert(t_data *data, size_t key, char *value)
 	i = 0;
 	while (i < data->hashtable_size)
 	{
-		j = get_hash(data, key, i);
+		j = get_hash(data->hashtable_size, key, i);
 		if (data->hashtable[j] == NULL)
 		{
 			data->hashtable[j] = new_entry(key, value);
@@ -107,6 +107,8 @@ int	main(void)
 	size_t	key;
 	t_data	data;
 
+	clock_t	start_time;
+	start_time = clock();
 	data = (t_data){.hashtable = NULL, .hashtable_size = HASH_TABLE_SIZE / 2};
 	state = INS_KEY;
 	line = get_next_line(0);
@@ -127,4 +129,9 @@ int	main(void)
 			state = (state + 1) % SEARCH;
 		line = get_next_line(0);
 	}
+	free_all(&data);
+	clock_t	end_time = clock();
+	double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+	printf("Elapsed time: %.2f seconds\n", elapsed_time);
+	return (0);
 }

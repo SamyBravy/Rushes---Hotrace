@@ -56,7 +56,7 @@ typedef struct s_data
 }	t_data;
 
 size_t	convert_to_int(char *key);
-size_t	get_hash(t_data *data, size_t key, int i);
+size_t	get_hash(size_t hashtable_size, size_t key, int i);
 
 char	*get_next_line(int fd);
 // UTILS

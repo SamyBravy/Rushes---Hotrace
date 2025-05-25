@@ -30,17 +30,17 @@ size_t	convert_to_int(char *key)
 	return (res);
 }
 
-size_t	h1(t_data *data, size_t key)
+size_t	h1(size_t hashtable_size, size_t key)
 {
-	return (key % data->hashtable_size);
+	return (key % hashtable_size);
 }
 
-size_t	h2(t_data *data, size_t key)
+size_t	h2(size_t hashtable_size, size_t key)
 {
-	return (1 + (key % (data->hashtable_size - 1)));
+	return (1 + (key % (hashtable_size - 1)));
 }
 
-size_t	get_hash(t_data *data, size_t key, int i)
+size_t	get_hash(size_t hashtable_size, size_t key, int i)
 {
-	return ((h1(data, key) + h2(data, key) * i) % data->hashtable_size);
+	return ((h1(hashtable_size, key) + h2(hashtable_size, key) * i) % hashtable_size);
 }
