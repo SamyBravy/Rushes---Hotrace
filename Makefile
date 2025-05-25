@@ -37,7 +37,7 @@ profile: pre-profile
 	cc gen.c -o gen
 	./gen > test_file
 	@echo "Running program with profiling enabled..."
-	./$(NAME) < test_file > /dev/null
+	./$(NAME) < test_file
 	@echo "Generating profiling report..."
 	gprof -lb $(NAME) > profile_report.txt
 	@echo "Profile report generated as profile_report.txt"
