@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: odudniak <odudniak@student.42firenze.      +#+  +:+       +#+        */
+/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/24 16:01:44 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 14:12:51 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
 
-t_entry	*new_entry(size_t key, char *value)
+t_entry	*new_entry(t_key key, char *value)
 {
 	t_entry	*entry;
 
 	entry = malloc(sizeof(t_entry));
 	if (!entry)
 		return (NULL);
-	entry->key = key;
+	entry->key = key.key;
+	entry->key_len = key.len;
 	entry->value = value;
 	entry->value_len = ft_strlen(value);
 	return (entry);

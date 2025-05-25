@@ -48,7 +48,7 @@ void	expand_hashtable(t_data *data)
 	data->hashtable_size = new_size;
 }
 
-void	insert(t_data *data, size_t key, char *value)
+void	insert(t_data *data, t_key key, char *value)
 {
 	int		i;
 	size_t	j;
@@ -56,7 +56,7 @@ void	insert(t_data *data, size_t key, char *value)
 	i = 0;
 	while (i < data->hashtable_size)
 	{
-		j = get_hash(data->hashtable_size, key, i);
+		j = get_hash(data->hashtable_size, key.key, i);
 		if (data->hashtable[j] == NULL)
 		{
 			data->hashtable[j] = new_entry(key, value);
@@ -111,7 +111,7 @@ int	main(void)
 {
 	char	*line;
 	t_state	state;
-	size_t	key;
+	t_key	key;
 	t_data	data;
 
 	clock_t	start_time;
@@ -123,7 +123,7 @@ int	main(void)
 	while (line)
 	{
 		if (state == INS_KEY)
-			key = convert_to_int(line);
+			key = (t_key){convert_to_int(line), ft_strlen(line)};
 		else if (state == INS_VALUE)
 			insert(&data, key, line);
 		else if (state == SEARCH)
