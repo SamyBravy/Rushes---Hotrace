@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_hashtable.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/25 14:25:25 by odudniak          #+#    #+#             */
+/*   Updated: 2025/05/25 14:26:23 by odudniak         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "hotrace.h"
 
-static void reassign_entries(t_data *data,
+static void	reassign_entries(t_data *data,
 	t_entry **new_hashtable, size_t new_size)
 {
 	size_t	j;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (i < data->hashtable_size)
