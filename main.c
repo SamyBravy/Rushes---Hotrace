@@ -36,15 +36,16 @@ void	insert(t_data *data, t_key key, char *value)
 
 int	search(t_data *data, char *key_str, size_t key)
 {
-	int		i;
-	size_t	j;
+	const size_t	key_len = ft_strlen(key_str);
+	int				i;
+	size_t			j;
 
 	i = 0;
 	j = get_hash(data->hashtable_size, key, i);
 	while (i < data->hashtable_size && data->hashtable[j] != NULL)
 	{
 		if (data->hashtable[j]->key == key
-			&& data->hashtable[j]->key_len == ft_strlen(key_str))
+			&& data->hashtable[j]->key_len == key_len)
 		{
 			write(1, data->hashtable[j]->value, data->hashtable[j]->value_len);
 			return (write(1, "\n", 1));
@@ -52,7 +53,7 @@ int	search(t_data *data, char *key_str, size_t key)
 		i++;
 		j = get_hash(data->hashtable_size, key, i);
 	}
-	write(1, key_str, ft_strlen(key_str));
+	write(1, key_str, key_len);
 	write(1, ": Not found.\n", 13);
 	return (0);
 }

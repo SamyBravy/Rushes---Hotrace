@@ -29,7 +29,7 @@ static char	*append_string(char *str, char *buff, int newline_idx)
 	int			buff_size;
 	char		*result;
 
-	if (ft_strlen(buff) == 0)
+	if (buff[0] == '\0')
 		return (str);
 	if (newline_idx != -1)
 		buff_size = newline_idx;
