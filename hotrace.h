@@ -6,7 +6,7 @@
 /*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:09:41 by samuele          ###   ########.fr       */
+/*   Updated: 2025/05/25 14:13:05 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	expand_hashtable(t_data *data);
 
 char	*get_next_line(int fd);
 // UTILS
-t_entry	*new_entry(size_t key, char *value);
+t_entry	*new_entry(t_key key, char *value);
 size_t	ft_strlen(char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t n, size_t size);

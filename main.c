@@ -14,7 +14,41 @@
 #include <time.h>
 #include <stdio.h>
 
-void	insert(t_data *data, size_t key, char *value)
+void	expand_hashtable(t_data *data)
+{
+	int		i;
+	int		new_size;
+	t_entry	**new_hashtable;
+	size_t	j;
+
+	new_size = data->hashtable_size * 2 + 1;
+	new_hashtable = ft_calloc(new_size, sizeof(t_entry *));
+	if (!new_hashtable)
+		write(2, "ERROR: cannot allocate memory\n", 31);
+	if (!data->hashtable)
+	{
+		data->hashtable = new_hashtable;
+		data->hashtable_size = new_size;
+		return ;
+	}
+	i = 0;
+	while (i < data->hashtable_size)
+	{
+		if (data->hashtable[i])
+		{
+			j = get_hash(new_size, data->hashtable[i]->key, 0);
+			while (new_hashtable[j] != NULL)
+				j = get_hash(new_size, data->hashtable[i]->key, j + 1);
+			new_hashtable[j] = data->hashtable[i];
+		}
+		i++;
+	}
+	free(data->hashtable);
+	data->hashtable = new_hashtable;
+	data->hashtable_size = new_size;
+}
+
+void	insert(t_data *data, t_key key, char *value)
 {
 	int		i;
 	size_t	j;
@@ -22,7 +56,7 @@ void	insert(t_data *data, size_t key, char *value)
 	i = 0;
 	while (i < data->hashtable_size)
 	{
-		j = get_hash(data->hashtable_size, key, i);
+		j = get_hash(data->hashtable_size, key.key, i);
 		if (data->hashtable[j] == NULL)
 		{
 			data->hashtable[j] = new_entry(key, value);
@@ -77,7 +111,7 @@ int	main(void)
 {
 	char	*line;
 	t_state	state;
-	size_t	key;
+	t_key	key;
 	t_data	data;
 
 	clock_t	start_time;
@@ -89,7 +123,7 @@ int	main(void)
 	while (line)
 	{
 		if (state == INS_KEY)
-			key = convert_to_int(line);
+			key = (t_key){convert_to_int(line), ft_strlen(line)};
 		else if (state == INS_VALUE)
 			insert(&data, key, line);
 		else if (state == SEARCH)
