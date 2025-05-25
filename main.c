@@ -19,26 +19,33 @@ void	expand_hashtable(t_data *data)
 	int		i;
 	int		new_size;
 	t_entry	**new_hashtable;
-	t_data	new_data;
+	size_t	j;
 
 	new_size = data->hashtable_size * 2 + 1;
 	new_hashtable = ft_calloc(new_size, sizeof(t_entry *));
 	if (!new_hashtable)
 		write(2, "ERROR: cannot allocate memory\n", 31);
-	new_data.hashtable = new_hashtable;
-	new_data.hashtable_size = new_size;
-	i = 0;
 	if (!data->hashtable)
 	{
 		data->hashtable = new_hashtable;
+		data->hashtable_size = new_size;
 		return ;
 	}
+	i = 0;
 	while (i < data->hashtable_size)
 	{
-		insert(data, data->hashtable[i]->key, data->hashtable[i]->value);
+		if (data->hashtable[i])
+		{
+			j = get_hash(new_size, data->hashtable[i]->key, 0);
+			while (new_hashtable[j] != NULL)
+				j = get_hash(new_size, data->hashtable[i]->key, j + 1);
+			new_hashtable[j] = data->hashtable[i];
+		}
 		i++;
 	}
 	free(data->hashtable);
+	data->hashtable = new_hashtable;
+	data->hashtable_size = new_size;
 }
 
 void	insert(t_data *data, size_t key, char *value)
@@ -67,7 +74,7 @@ int	search(t_data *data, char *key_str, size_t key)
 	size_t	j;
 
 	i = 0;
-	j = get_hash(data, key, i);
+	j = get_hash(data->hashtable_size, key, i);
 	while (i < data->hashtable_size && data->hashtable[j] != NULL)
 	{
 		if (data->hashtable[j]->key == key)
@@ -76,7 +83,7 @@ int	search(t_data *data, char *key_str, size_t key)
 			return (write(1, "\n", 1));
 		}
 		i++;
-		j = get_hash(data, key, i);
+		j = get_hash(data->hashtable_size, key, i);
 	}
 	write(1, key_str, ft_strlen(key_str));
 	write(1, ": Not found.\n", 13);
