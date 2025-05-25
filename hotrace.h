@@ -64,10 +64,12 @@ typedef struct s_key
 size_t	convert_to_int(char *key);
 size_t	get_hash(size_t hashtable_size, size_t key, int i);
 
+void	expand_hashtable(t_data *data);
+
 char	*get_next_line(int fd);
 // UTILS
 t_entry	*new_entry(size_t key, char *value);
-int		ft_strlen(char *str);
+size_t	ft_strlen(char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t n, size_t size);
 

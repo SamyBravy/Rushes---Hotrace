@@ -23,7 +23,7 @@ bool chance(int chance)
 
 char rand_char()
 {
-	const static char* chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ ";
+	static const char* chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ ";
 	const int num_chars = 64;
 
 	return chars[rand_int_exlusive(num_chars)];

@@ -6,10 +6,12 @@ CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
 # HASH_TABLE_SIZE ?= 333337
 # CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
 
-SRC = ./get_next_line.c \
+SRC = ./expand_hashtable.c \
+	./get_next_line.c \
 	./hashing.c \
 	./main.c \
 	./utils.c
+
 
 all: $(NAME)
 
