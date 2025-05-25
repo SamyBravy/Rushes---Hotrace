@@ -1,11 +1,11 @@
 NAME=hotrace
 
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -O3 -I.
+CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
 
 HASH_TABLE_SIZE ?= 333337
 
-CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
+# CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
 
 SRC = ./get_next_line.c \
 	./hashing.c \

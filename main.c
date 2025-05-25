@@ -23,7 +23,7 @@ void	expand_hashtable(t_data *data)
 	new_size = data->hashtable_size * 2 + 1;
 	new_hashtable = ft_calloc(new_size, sizeof(t_entry *));
 	if (!new_hashtable)
-		write(2, "ERROR: cannot allocate memory\n", 32);
+		write(2, "ERROR: cannot allocate memory\n", 31);
 	i = 0;
 	if (!data->hashtable)
 	{
