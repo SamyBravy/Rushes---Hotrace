@@ -40,8 +40,9 @@ static char	*append_string(char *str, char *buff, int newline_idx)
 		return (free(str), NULL);
 	ft_memmove(result, str, str_size);
 	ft_memmove(result + str_size, buff, buff_size);
+	result[str_size + buff_size] = '\0';
 	ft_memmove(buff, buff + buff_size + (newline_idx != -1),
-		BUFFER_SIZE - buff_size + 1);
+		BUFFER_SIZE - buff_size + 1 + (newline_idx != -1));
 	return (free(str), result);
 }
 
@@ -70,3 +71,30 @@ char	*get_next_line(int fd)
 	}
 	return (result);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	int		fd;
+// 	char	*line;
+
+// 	if (argc != 2)
+// 		return (write(2, "Usage: ", 7), write(2, argv[0], ft_strlen(argv[0])),
+// 			write(2, " <file>\n", 8), 1);
+// 	fd = open(argv[1], O_RDONLY);
+// 	if (fd < 0)
+// 		return (write(2, "Error: cannot open file\n", 25), 1);
+// 	line = get_next_line(fd);
+// 	write(1, "[", 1);
+// 	write(1, line, ft_strlen(line));
+// 	write(1, "]", 2);
+// 	while (line)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 		write(1, "[", 1);
+// 		write(1, line, ft_strlen(line));
+// 		write(1, "]", 2);
+// 		write(1, "\n", 1);
+// 	}
+// 	return (close(fd), 0);
+// }

@@ -35,7 +35,7 @@ char* gen_key(int size)
 
 	for (int i = 0; i < size; i++)
 		ptr[i] = rand_char();
-	
+
 	return ptr;
 }
 
