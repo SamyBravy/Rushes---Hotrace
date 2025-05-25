@@ -77,7 +77,7 @@ int	search(t_data *data, char *key_str, size_t key)
 	j = get_hash(data->hashtable_size, key, i);
 	while (i < data->hashtable_size && data->hashtable[j] != NULL)
 	{
-		if (data->hashtable[j]->key == key)
+		if (data->hashtable[j]->key == key && data->hashtable[j]->key_len == ft_strlen(key_str))
 		{
 			write(1, data->hashtable[j]->value, data->hashtable[j]->value_len);
 			return (write(1, "\n", 1));
