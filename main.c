@@ -127,4 +127,5 @@ int	main(void)
 			state = (state + 1) % SEARCH;
 		line = get_next_line(0);
 	}
+	free_all(&data);
 }

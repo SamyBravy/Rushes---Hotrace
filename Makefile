@@ -3,8 +3,7 @@ NAME=hotrace
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I. -pg
 
-HASH_TABLE_SIZE ?= 333337
-
+# HASH_TABLE_SIZE ?= 333337
 # CFLAGS += -DHASH_TABLE_SIZE=$(HASH_TABLE_SIZE)
 
 SRC = ./get_next_line.c \
@@ -25,31 +24,11 @@ clean:
 fclean: clean
 
 re: fclean all
-gen:
-	@rm -f gen test.txt
-	@echo "Generating files..."
-	cc gen.c -o gen
-	./gen > test.txt
-	@echo "Test file generated as test.txt"
 
-# Added prof target as an alias to profile
-prof: profile
-
-exec: gen
-	@echo "Executing the program..."
-	./$(NAME) < test.txt
 
 profile: CFLAGS += -pg
 profile: LDFLAGS += -pg
 profile: re
-
-gprof-report:
-	@if [ -f gmon.out ]; then \
-		gprof -lp -v $(NAME) < test_file > profile_report.txt; \
-		echo "Detailed profile report generated as profile_report.txt"; \
-	else \
-		echo "Error: gmon.out not found. Run the program with 'make profile' first."; \
-	fi
 
 # Complete profiling workflow in a single command
 profile-all: profile
@@ -58,7 +37,7 @@ profile-all: profile
 	cc gen.c -o gen
 	./gen > test_file
 	@echo "Running program with profiling enabled..."
-	./$(NAME) < test_file
+	./$(NAME) < test_file > /dev/null
 	@echo "Generating profiling report..."
 	gprof -lb $(NAME) > profile_report.txt
 	@echo "Profile report generated as profile_report.txt"
