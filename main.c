@@ -14,7 +14,7 @@
 #include <time.h>
 #include <stdio.h>
 
-void	insert(t_data *data, t_key key, char *value)
+static void	insert(t_data *data, t_key key, char *value)
 {
 	int		i;
 	size_t	j;
@@ -35,7 +35,7 @@ void	insert(t_data *data, t_key key, char *value)
 	}
 }
 
-int	search(t_data *data, char *key_str, size_t key)
+static int	search(t_data *data, char *key_str, size_t key)
 {
 	const size_t	key_len = ft_strlen(key_str);
 	int				i;
@@ -59,7 +59,7 @@ int	search(t_data *data, char *key_str, size_t key)
 	return (0);
 }
 
-void	init(t_data *data, t_state *state)
+static void	init(t_data *data, t_state *state)
 {
 	*state = INS_KEY;
 	data->inserted = 0;

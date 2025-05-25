@@ -1,7 +1,7 @@
 NAME=hotrace
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
+CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3  -march=native -I.
 
 SRC = ./expand_hashtable.c \
 	./get_next_line.c \
