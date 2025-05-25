@@ -58,37 +58,28 @@ int	search(t_data *data, char *key_str, size_t key)
 	return (0);
 }
 
-void	free_all(t_data *data)
+void	init(t_data *data, t_state *state)
 {
-	int		i;
-
-	i = 0;
-	while (i < data->hashtable_size)
-	{
-		if (data->hashtable[i])
-		{
-			free(data->hashtable[i]->value);
-			free(data->hashtable[i]);
-		}
-		i++;
-	}
-	free(data->hashtable);
+	*state = INS_KEY;
+	data->hashtable_size = HASH_TABLE_SIZE;
+	data->hashtable = ft_calloc(data->hashtable_size, sizeof(t_entry *));
 }
 
 int	main(void)
 {
-	char	*line;
-	t_state	state;
-	t_key	key;
-	t_data	data;
-	struct timespec start, end;
-	double elapsed;
+	char			*line;
+	t_state			state;
+	t_key			key;
+	t_data			data;
+	// REMOVE-----------------
+	struct timespec	start;
+	struct timespec	end;
+	double			elapsed;
 
 	clock_gettime(CLOCK_MONOTONIC, &start);
-	data = (t_data){.hashtable = NULL, .hashtable_size = HASH_TABLE_SIZE / 2};
-	state = INS_KEY;
+	// REMOVE-----------------
+	init(&data, &state);
 	line = get_next_line(0);
-	expand_hashtable(&data);
 	while (line)
 	{
 		if (state == INS_KEY)
@@ -106,8 +97,9 @@ int	main(void)
 		line = get_next_line(0);
 	}
 	free_all(&data);
+	// REMOVE-----------------
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 	printf("Elapsed time: %.9f seconds\n", elapsed);
-	return (0);
+	// REMOVE-----------------
 }

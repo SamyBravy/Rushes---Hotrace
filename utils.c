@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:12:51 by samuele          ###   ########.fr       */
+/*   Updated: 2025/05/25 14:55:17 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hotrace.h"
+
+void	free_all(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < data->hashtable_size)
+	{
+		if (data->hashtable[i])
+		{
+			free(data->hashtable[i]->value);
+			free(data->hashtable[i]);
+		}
+		i++;
+	}
+	free(data->hashtable);
+}
 
 t_entry	*new_entry(t_key key, char *value)
 {

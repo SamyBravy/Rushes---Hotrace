@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hotrace.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 14:30:03 by samuele          ###   ########.fr       */
+/*   Updated: 2025/05/25 14:52:14 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ size_t	convert_to_int(char *key);
 size_t	get_hash(size_t hashtable_size, size_t key, int i);
 
 void	expand_hashtable(t_data *data);
+
+typedef struct s_gnl
+{
+	ssize_t		bytes;
+	int			newline_idx;
+	char		*res;
+	int			ressize;
+}	t_gnl;
 
 char	*get_next_line(int fd);
 // UTILS

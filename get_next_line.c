@@ -23,9 +23,8 @@ static int	ft_idxof(char *str, char c)
 	return (-1);
 }
 
-static char	*append_string(char *str, char *buff, int newline_idx)
+static char	*append_string(char *str, char *buff, int str_size, int newline_idx)
 {
-	const int	str_size = ft_strlen(str);
 	int			buff_size;
 	char		*result;
 
@@ -49,27 +48,30 @@ static char	*append_string(char *str, char *buff, int newline_idx)
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1] = {0};
-	char		*result;
-	ssize_t		bytes;
-	int			newline_idx;
+	t_gnl		gnl;
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
-	result = NULL;
+	gnl = (t_gnl){0};
+	gnl.bytes = ft_strlen(buffer);
 	while (true)
 	{
-		newline_idx = ft_idxof(buffer, '\n');
-		result = append_string(result, buffer, newline_idx);
-		if (newline_idx != -1)
-			return (result);
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes < 0)
-			return (free(result), NULL);
-		buffer[bytes] = '\0';
-		if (bytes == 0)
-			return (result);
+		gnl.newline_idx = ft_idxof(buffer, '\n');
+		gnl.res = append_string(gnl.res, buffer, gnl.ressize, gnl.newline_idx);
+		if (gnl.newline_idx == -1)
+			gnl.ressize += gnl.bytes;
+		else
+			gnl.ressize += gnl.newline_idx + 1;
+		if (gnl.newline_idx != -1)
+			return (gnl.res);
+		gnl.bytes = read(fd, buffer, BUFFER_SIZE);
+		if (gnl.bytes < 0)
+			return (free(gnl.res), NULL);
+		buffer[gnl.bytes] = '\0';
+		if (gnl.bytes == 0)
+			return (gnl.res);
 	}
-	return (result);
+	return (gnl.res);
 }
 
 // int	main(int argc, char **argv)
