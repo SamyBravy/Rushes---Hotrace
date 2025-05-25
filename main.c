@@ -20,18 +20,19 @@ void	insert(t_data *data, t_key key, char *value)
 	size_t	j;
 
 	i = 0;
+	if (data->inserted > data->hashtable_size * 0.69)
+		expand_hashtable(data);
 	while (i < data->hashtable_size)
 	{
 		j = get_hash(data->hashtable_size, key.key, i);
 		if (data->hashtable[j] == NULL)
 		{
 			data->hashtable[j] = new_entry(key, value);
+			data->inserted++;
 			return ;
 		}
 		i++;
 	}
-	expand_hashtable(data);
-	insert(data, key, value);
 }
 
 int	search(t_data *data, char *key_str, size_t key)
@@ -61,6 +62,7 @@ int	search(t_data *data, char *key_str, size_t key)
 void	init(t_data *data, t_state *state)
 {
 	*state = INS_KEY;
+	data->inserted = 0;
 	data->hashtable_size = HASH_TABLE_SIZE;
 	data->hashtable = ft_calloc(data->hashtable_size, sizeof(t_entry *));
 }

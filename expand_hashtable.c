@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/25 14:25:25 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 15:14:03 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:25:54 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,20 @@ static void	reassign_entries(t_data *data,
 {
 	size_t	j;
 	int		i;
+	size_t	k;
 
 	i = 0;
 	while (i < data->hashtable_size)
 	{
 		if (data->hashtable[i])
 		{
+			k = 0;
 			j = get_hash(new_size, data->hashtable[i]->key, 0);
 			while (new_hashtable[j] != NULL)
-				j = get_hash(new_size, data->hashtable[i]->key, j + 1);
+			{
+				j = get_hash(new_size, data->hashtable[i]->key, k);
+				k++;
+			}
 			new_hashtable[j] = data->hashtable[i];
 		}
 		i++;

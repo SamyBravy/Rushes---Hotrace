@@ -6,7 +6,7 @@
 /*   By: odudniak <odudniak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:01:21 by odudniak          #+#    #+#             */
-/*   Updated: 2025/05/25 15:20:13 by odudniak         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:33:47 by odudniak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_data
 {
 	t_entry	**hashtable;
 	int		hashtable_size;
-
+	int		inserted;
 }	t_data;
 
 typedef struct s_key
