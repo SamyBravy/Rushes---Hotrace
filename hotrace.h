@@ -55,6 +55,12 @@ typedef struct s_data
 
 }	t_data;
 
+typedef struct s_key
+{
+	size_t	key;
+	size_t	len;
+}	t_key;
+
 size_t	convert_to_int(char *key);
 size_t	get_hash(size_t hashtable_size, size_t key, int i);
 
