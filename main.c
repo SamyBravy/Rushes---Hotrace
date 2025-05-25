@@ -119,7 +119,7 @@ int	main(void)
 			insert(&data, key, line);
 		else if (state == SEARCH)
 			search(&data, line, convert_to_int(line));
-		if (state == INS_KEY && ft_strlen(line) == 0)
+		if (state == INS_KEY && line[0] == '\0')
 			state = SEARCH;
 		if (state != INS_VALUE)
 			free(line);

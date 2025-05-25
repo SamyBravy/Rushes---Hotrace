@@ -1,7 +1,7 @@
 NAME=hotrace
 
-CC=cc
-CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I.
+CC=gcc
+CFLAGS=-Wall -Wextra -Werror -Wno-unused-result -O3 -I. -pg
 
 HASH_TABLE_SIZE ?= 333337
 
@@ -43,38 +43,29 @@ profile: CFLAGS += -pg
 profile: LDFLAGS += -pg
 profile: re
 
-gprof-report: 
+gprof-report:
 	@if [ -f gmon.out ]; then \
-		gprof -lp -v $(NAME) > profile_report.txt; \
+		gprof -lp -v $(NAME) < test_file > profile_report.txt; \
 		echo "Detailed profile report generated as profile_report.txt"; \
 	else \
 		echo "Error: gmon.out not found. Run the program with 'make profile' first."; \
 	fi
 
-gprof-visual: gprof-report 
-	@if [ -f $(HOME)/.local/bin/gprof2dot ]; then \
-		$(HOME)/.local/bin/gprof2dot -f prof profile_report.txt | dot -Tpng -o profile.png; \
-		echo "Visual profile generated as profile.png"; \
-	else \
-		echo "Please install gprof2dot with: pip3 install --user gprof2dot"; \
-		exit 1; \
-	fi
-
 # Complete profiling workflow in a single command
 profile-all: profile
 	@echo "Generating test data..."
-	@rm -f gen test.txt
+	@rm -f gen test_file
 	cc gen.c -o gen
-	./gen > test.txt
+	./gen > test_file
 	@echo "Running program with profiling enabled..."
-	./$(NAME) < test.txt
+	./$(NAME) < test_file
 	@echo "Generating profiling report..."
 	gprof -lb $(NAME) > profile_report.txt
 	@echo "Profile report generated as profile_report.txt"
-	@if [ -f $(HOME)/.local/bin/gprof2dot ]; then \
-		$(HOME)/.local/bin/gprof2dot -f prof profile_report.txt | dot -Tpng -o profile.png && \
-		echo "Visual profile generated as profile.png"; \
-	fi
+# @if [ -f $(HOME)/.local/bin/gprof2dot ]; then \
+# 	$(HOME)/.local/bin/gprof2dot -f prof profile_report.txt | dot -Tpng -o profile.png && \
+# 	echo "Visual profile generated as profile.png"; \
+# fi
 	@echo "Profiling complete!"
 .PHONY: all clean fclean re
 .SILENT:
