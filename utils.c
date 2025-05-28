@@ -29,16 +29,31 @@ void	free_all(t_data *data)
 	free(data->hashtable);
 }
 
-t_entry	*new_entry(t_key key, char *value)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_entry	*entry;
+	int	result;
 
-	entry = malloc(sizeof(t_entry));
-	entry->key = key.key;
-	entry->key_len = key.len;
-	entry->value = value;
-	entry->value_len = ft_strlen(value);
-	return (entry);
+	__asm__ volatile (
+		// Save registers we'll modify
+		"push %%rcx\n"
+		// Main comparison loop
+		"1:\n"
+		"movzbl (%0), %%eax\n" // Load byte from s1 into eax
+		"movzbl (%1), %%ecx\n" // Load byte from s2 into ecx
+		"incq %0\n"// Increment s1 pointer
+		"incq %1\n"// Increment s2 pointer
+		"testb %%al, %%al\n"// Check if we reached end of s1
+		"je 2f\n"// If zero, exit loop
+		"cmpb %%cl, %%al\n"// Compare bytes
+		"je 1b\n"// If equal, continue loop
+		// Exit point - compute difference
+		"2:\n"
+		"subl %%ecx, %%eax\n"// Compute difference
+		"pop %%rcx\n"// Restore rcx
+		: "=&S"(s1), "=&D"(s2), "=&a"(result)
+		: "0"(s1), "1"(s2)
+		: "memory", "cc");
+	return (result);
 }
 
 size_t	ft_strlen(char *str)

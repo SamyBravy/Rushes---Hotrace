@@ -14,6 +14,18 @@
 #include <time.h>
 #include <stdio.h>
 
+static t_entry	*new_entry(t_key key, char *value)
+{
+	t_entry	*entry;
+
+	entry = malloc(sizeof(t_entry));
+	entry->key = key.key;
+	entry->key_str = key.str;
+	entry->value = value;
+	entry->value_len = ft_strlen(value);
+	return (entry);
+}
+
 static void	insert(t_data *data, t_key key, char *value)
 {
 	int		i;
@@ -37,16 +49,15 @@ static void	insert(t_data *data, t_key key, char *value)
 
 static int	search(t_data *data, char *key_str, size_t key)
 {
-	const size_t	key_len = ft_strlen(key_str);
-	int				i;
-	size_t			j;
+	int		i;
+	size_t	j;
 
 	i = 0;
 	j = get_hash(data->hashtable_size, key, i);
 	while (i < data->hashtable_size && data->hashtable[j] != NULL)
 	{
 		if (data->hashtable[j]->key == key
-			&& data->hashtable[j]->key_len == key_len)
+			&& ft_strcmp(data->hashtable[j]->key_str, key_str) == 0)
 		{
 			write(1, data->hashtable[j]->value, data->hashtable[j]->value_len);
 			return (write(1, "\n", 1));
@@ -54,7 +65,7 @@ static int	search(t_data *data, char *key_str, size_t key)
 		i++;
 		j = get_hash(data->hashtable_size, key, i);
 	}
-	write(1, key_str, key_len);
+	write(1, key_str, ft_strlen(key_str));
 	write(1, ": Not found.\n", 13);
 	return (0);
 }
@@ -88,15 +99,15 @@ int	main(void)
 	while (line)
 	{
 		if (state == INS_KEY)
-			key = (t_key){convert_to_int(line), ft_strlen(line)};
+			key = (t_key){convert_to_int(line), line};
 		else if (state == INS_VALUE)
 			insert(&data, key, line);
 		else if (state == SEARCH)
 			search(&data, line, convert_to_int(line));
+		if (state == SEARCH)
+			free(line);
 		if (state == INS_KEY && line[0] == '\0')
 			state = SEARCH;
-		if (state != INS_VALUE)
-			free(line);
 		if (state != SEARCH)
 			state = (state + 1) % SEARCH;
 		line = get_next_line(0);

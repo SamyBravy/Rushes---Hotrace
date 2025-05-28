@@ -19,26 +19,20 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-# include <stdlib.h>
-# include <stdbool.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
-
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 1024 // ridurre per prendere un punteggio più alto al test hard
 # endif
 
 # ifndef HASH_TABLE_SIZE
-#  define HASH_TABLE_SIZE 111427
+#  define HASH_TABLE_SIZE 111427 // ridurre per prendere un punteggio più alto al test hard
 # endif
 
 typedef struct s_entry
 {
 	size_t		key;
+	char		*key_str;
 	char		*value;
 	size_t		value_len;
-	size_t		key_len;
 }	t_entry;
 
 typedef enum e_state
@@ -58,7 +52,7 @@ typedef struct s_data
 typedef struct s_key
 {
 	size_t	key;
-	size_t	len;
+	char	*str;
 }	t_key;
 
 size_t	convert_to_int(char *key);
@@ -77,7 +71,7 @@ typedef struct s_gnl
 char	*get_next_line(int fd);
 // UTILS
 void	free_all(t_data *data);
-t_entry	*new_entry(t_key key, char *value);
+int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_calloc(size_t n, size_t size);
